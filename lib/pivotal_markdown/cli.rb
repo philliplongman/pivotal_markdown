@@ -1,21 +1,11 @@
 require "thor"
 require "tracker_api"
 
-require_relative "cli/config_commands"
-require_relative "cli/story_commands"
+require_relative "cli/shared"
 
-module PivotalMarkdown
-  class CLI < Thor
+require_relative "cli/error"
+require_relative "cli/project"
+require_relative "cli/token"
+require_relative "cli/upload"
 
-    private
-
-    def no_api_token_error
-      StandardError.new "No API token saved. Run `ptmd api --set TOKEN` to set one."
-    end
-
-    def no_default_project_error
-      StandardError.new "No default project set. Run `ptmd default --set ID` to set one."
-    end
-
-  end
-end
+require_relative "cli/base"
