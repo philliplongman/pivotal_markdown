@@ -15,6 +15,14 @@ module PivotalMarkdown
       options["api_token"] = token
     end
 
+    def default_project
+      options["default_project"]
+    end
+
+    def default_project=(id)
+      options["default_project"] = id
+    end
+
     def [](key)
       options[key]
     end
