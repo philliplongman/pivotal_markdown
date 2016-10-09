@@ -1,3 +1,9 @@
-#!/usr/bin/env ruby -wU
+#!/usr/bin/env ruby -U
 
 require "pivotal_markdown"
+
+begin
+  PivotalMarkdown::CLI::Base.start(ARGV)
+rescue => error
+  puts error
+end
