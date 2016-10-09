@@ -3,7 +3,7 @@ require "tracker_api"
 module PivotalMarkdown
   class CLI < Thor
 
-    desc "api [--set TOKEN]", "check or set API token"
+    desc "api [--set TOKEN]", "Check or set API token"
     option :set
     def api
       if options[:set]
@@ -14,7 +14,7 @@ module PivotalMarkdown
       end
     end
 
-    desc "default [--set ID]", "check or set default project ID"
+    desc "default [--set ID]", "Check or set default project ID"
     option :set
     def default
       raise no_api_token_error unless config.api_token

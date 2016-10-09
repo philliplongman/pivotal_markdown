@@ -2,6 +2,7 @@ require "thor"
 require "tracker_api"
 
 require_relative "cli/config_commands"
+require_relative "cli/story_commands"
 
 module PivotalMarkdown
   class CLI < Thor
