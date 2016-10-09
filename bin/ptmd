@@ -2,4 +2,8 @@
 
 require "pivotal_markdown"
 
-PivotalMarkdown::CLI.start(ARGV)
+begin
+  PivotalMarkdown::CLI.start(ARGV)
+rescue => error
+  puts error
+end

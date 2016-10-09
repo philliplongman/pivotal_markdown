@@ -8,15 +8,11 @@ module PivotalMarkdown
     end
 
     def name
-      @me.name if valid_token?
+      me.name
     end
 
     def email
-      @me.email if valid_token?
-    end
-
-    def valid_token?
-      me ? true : false
+      me.email
     end
 
     private
@@ -27,7 +23,7 @@ module PivotalMarkdown
       @me ||= begin
         client.me
       rescue
-        false
+        raise StandardError.new "Invalid API token."
       end
     end
 
