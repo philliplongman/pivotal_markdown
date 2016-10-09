@@ -1,6 +1,8 @@
 # TODO
 - Add tests.
-- Clear default project.
+- Move Error put of CLI module.
+- Refactor Verifier.
+- Clear method for default project.
 - Import/adapt upload code.
 - Write readme.
 - Release gem.
