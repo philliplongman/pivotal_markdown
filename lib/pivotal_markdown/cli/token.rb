@@ -10,7 +10,7 @@ module PivotalMarkdown
         verifier = Verifier.new(token)
         puts "Token set for #{verifier.name} - #{verifier.email}"
         config.api_token = token
-        config.save!
+        config.save
       end
 
       desc "check", "Check configured API token"

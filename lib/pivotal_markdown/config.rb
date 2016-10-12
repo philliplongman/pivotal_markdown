@@ -31,7 +31,7 @@ module PivotalMarkdown
       options[key] = input
     end
 
-    def save!
+    def save
       File.write(config_file, options.to_yaml)
     end
 

@@ -12,7 +12,7 @@ module PivotalMarkdown
         verifier = Verifier.new(config.api_token, project_id)
         puts "Default project set to (#{verifier.project_id}) #{verifier.project_name}"
         config.default_project = project_id
-        config.save!
+        config.save
       end
 
       desc "check", "Check configured default project"
