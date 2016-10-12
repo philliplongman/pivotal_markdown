@@ -33,6 +33,7 @@ module PivotalMarkdown
 
     def save
       File.write(config_file, options.to_yaml)
+      @options = nil # "closes" the file
     end
 
     private

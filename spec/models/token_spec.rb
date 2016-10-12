@@ -9,10 +9,10 @@ module PivotalMarkdown
       before :each do
         backup_config
 
-        unreliable_verifier = double(
+        unreliable_user_info = double(
           name: "Holden Caulfield", email: "catcher@therye.com"
         )
-        allow(Verifier).to receive(:new) { unreliable_verifier }
+        allow(Verifier).to receive(:new) { unreliable_user_info }
       end
 
       after :each do
@@ -21,14 +21,14 @@ module PivotalMarkdown
 
       describe '#set' do
         it "verifies the token" do
-          Token.new.set("valid API token")
-          expect(config.api_token).to eq 'valid API token'
-        end
-
-        it "records the token in the config rile" do
           readout = "Token set for Holden Caulfield - catcher@therye.com."
           expect(STDOUT).to receive(:puts).with(readout)
           Token.new.set "valid API token"
+        end
+
+        it "records the token in the config file" do
+          Token.new.set "valid API token"
+          expect(config.api_token).to eq "valid API token"
         end
       end
 
