@@ -3,7 +3,6 @@ require "tracker_api"
 module PivotalMarkdown
   module CLI
     class Token < Thor
-      include Shared
 
       desc "set TOKEN", "Set API token to access"
       def set(token)
@@ -19,6 +18,12 @@ module PivotalMarkdown
 
         verifier = Verifier.new(config.api_token)
         puts "Token set for #{verifier.name} - #{verifier.email}."
+      end
+
+      private
+
+      def config
+        @config ||= Config.new
       end
 
     end

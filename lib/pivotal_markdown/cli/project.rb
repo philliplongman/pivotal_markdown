@@ -3,7 +3,6 @@ require "tracker_api"
 module PivotalMarkdown
   module CLI
     class Project < Thor
-      include Shared
 
       desc "set PROJECT_ID", "Set default project"
       def set(project_id)
@@ -22,6 +21,12 @@ module PivotalMarkdown
 
         verifier = Verifier.new(config.api_token, config.default_project)
         puts "Default project set to (#{verifier.project_id}) #{verifier.project_name}."
+      end
+
+      private
+
+      def config
+        @config ||= Config.new
       end
 
     end
