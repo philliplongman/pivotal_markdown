@@ -8,11 +8,7 @@ module PivotalMarkdown
 
       before :each do
         backup_config
-
-        untrustworthy_project_info = double(
-          project_id: "000", project_name: "Help that Nigerian Prince"
-        )
-        allow(Verifier).to receive(:new) { untrustworthy_project_info }
+        allow(Verifier).to receive(:new) { UntrustworthyProject.new }
       end
 
       after :each do

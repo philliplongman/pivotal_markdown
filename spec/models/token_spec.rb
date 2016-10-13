@@ -8,11 +8,7 @@ module PivotalMarkdown
 
       before :each do
         backup_config
-
-        unreliable_user_info = double(
-          name: "Holden Caulfield", email: "catcher@therye.com"
-        )
-        allow(Verifier).to receive(:new) { unreliable_user_info }
+        allow(Verifier).to receive(:new) { UnreliableUser.new }
       end
 
       after :each do
