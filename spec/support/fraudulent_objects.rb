@@ -13,7 +13,7 @@ module FraudulentObjects
 
     def project(id)
       if id == '00000'
-        ShadyJob.new(name: "Steal the Maltese Falcon")
+        ShadyJob.new(id: "00000", name: "Steal the Maltese Falcon")
       else
         raise PhonyBadProjectError.new
       end

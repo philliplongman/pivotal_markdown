@@ -6,21 +6,32 @@ module PivotalMarkdown
 
       desc "set TOKEN", "Set API token to access"
       def set(token)
-        verifier = Verifier.new(token)
-        puts "Token set for #{verifier.name} - #{verifier.email}."
-        config.api_token = token
-        config.save
+        begin
+          user = client(token).me
+          config.api_token = token
+          config.save
+          puts "Token set for #{user.name} - #{user.email}."
+        rescue
+          raise Error.invalid_api_token
+        end
       end
 
       desc "check", "Check configured API token"
       def check
         raise Error.no_api_token unless config.api_token
-
-        verifier = Verifier.new(config.api_token)
-        puts "Token set for #{verifier.name} - #{verifier.email}."
+        begin
+          user = client(config.api_token).me
+          puts "Token set for #{user.name} - #{user.email}."
+        rescue
+          raise Error.invalid_api_token
+        end
       end
 
       private
+
+      def client(token)
+        TrackerApi::Client.new(token: token)
+      end
 
       def config
         @config ||= Config.new
