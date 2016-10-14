@@ -4,7 +4,7 @@ module PivotalMarkdown
   class Config
 
     def initialize
-      File.write(config_file, {}.to_yaml) unless File.exists? config_file
+      File.write(config_file, {}.to_yaml) unless File.exist? config_file
     end
 
     def api_token
@@ -31,8 +31,9 @@ module PivotalMarkdown
       options[key] = input
     end
 
-    def save!
+    def save
       File.write(config_file, options.to_yaml)
+      @options = nil # "closes" the file
     end
 
     private
