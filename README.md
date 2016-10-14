@@ -1,5 +1,9 @@
 # PivotalMarkdown
 
+[![Build Status](https://app.codeship.com/projects/1b599e00-73d5-0134-dfe0-4a3fe60937a4/status?branch=master)](https://app.codeship.com/projects/179042)
+[![Code Climate](https://codeclimate.com/github/casualsubversive/by-its-cover.png)](https://codeclimate.com/github/philliplongman/pivotal_markdown/)
+[![Coverage Status](https://coveralls.io/repos/github/philliplongman/pivotal_markdown/badge.svg?branch=master)](https://coveralls.io/github/philliplongman/pivotal_markdown?branch=master)
+
 Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/pivotal_markdown`. To experiment with that code, run `bin/console` for an interactive prompt.
 
 TODO: Delete this and the text above, and describe your gem

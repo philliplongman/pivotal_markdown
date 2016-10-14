@@ -6,3 +6,6 @@ require_relative 'support/fraudulent_objects'
 
 include ConfigCleaner
 include FraudulentObjects
+
+require 'coveralls'
+Coveralls.wear!
