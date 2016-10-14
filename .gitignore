@@ -6,6 +6,5 @@
 /spec/reports/
 /tmp/
 
-/.coveralls.yml
 /.yardoc
 /Gemfile.lock
