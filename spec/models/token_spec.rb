@@ -8,7 +8,7 @@ module PivotalMarkdown
 
       before :each do
         backup_config
-        allow(Verifier).to receive(:new) { UnreliableUser.new }
+        stub_pivotal_tracker_api
       end
 
       after :each do
@@ -17,23 +17,23 @@ module PivotalMarkdown
 
       describe '#set' do
         it "verifies the token" do
-          readout = "Token set for Holden Caulfield - catcher@therye.com."
+          readout = "Token set for Brigid O'Shaughnessy - misswonderly@gmail.com."
           expect(STDOUT).to receive(:puts).with(readout)
-          Token.new.set "valid API token"
+          Token.new.set "valid token"
         end
 
         it "records the token in the config file" do
-          Token.new.set "valid API token"
-          expect(config.api_token).to eq "valid API token"
+          Token.new.set "valid token"
+          expect(config.api_token).to eq "valid token"
         end
       end
 
       describe '#check' do
         it "displays the stored token" do
-          config.api_token = "valid API token"
+          config.api_token = "valid token"
           config.save
 
-          readout = "Token set for Holden Caulfield - catcher@therye.com."
+          readout = "Token set for Brigid O'Shaughnessy - misswonderly@gmail.com."
           expect(STDOUT).to receive(:puts).with(readout)
           Token.new.check
         end

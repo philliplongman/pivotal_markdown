@@ -4,12 +4,7 @@ module PivotalMarkdown
   describe Verifier do
 
     before :each do
-      allow(TrackerApi::Client).to receive(:new).with(token: "valid token") {
-        DishonestClient.new
-      }
-      allow(TrackerApi::Client).to receive(:new).with(token: "invalid token") {
-        raise FakeAuthenticationError.new
-      }
+      stub_pivotal_tracker_api
     end
 
     describe '#name' do
@@ -38,17 +33,19 @@ module PivotalMarkdown
 
     describe '#project_name' do
       it "returns the default project's name" do
-        verifier = Verifier.new("valid token", 'valid id')
+        valid_id = "00000"
+        verifier = Verifier.new("valid token", valid_id)
         expect(verifier.project_name).to eq "Steal the Maltese Falcon"
       end
 
       it "raises an error when API token is invalid" do
-        verifier = Verifier.new("invalid token", 'valid id')
+        valid_id = "00000"
+        verifier = Verifier.new("invalid token", valid_id)
         expect { verifier.project_name }.to raise_error "Invalid API token."
       end
 
       it "raises an error when project ID is invalid" do
-        verifier = Verifier.new("valid token", 'invalid id')
+        verifier = Verifier.new("valid token", 'invalid ID')
         expect { verifier.project_name }.to raise_error "Project ID not found."
       end
     end

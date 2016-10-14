@@ -2,41 +2,32 @@ require 'ostruct'
 
 module FraudulentObjects
 
-  class UnreliableUser
-    def name
-      "Holden Caulfield"
-    end
-
-    def email
-      "catcher@therye.com"
-    end
-  end
-
-  class UntrustworthyProject
-    def project_id
-      "000"
-    end
-
-    def project_name
-      "Help that Nigerian Prince"
-    end
-  end
-
   class DishonestClient
 
     def me
-      OpenStruct.new(name: "Brigid O'Shaughnessy", email: "misswonderly@gmail.com")
+      FakeName.new(
+        name: "Brigid O'Shaughnessy",
+        email: "misswonderly@gmail.com"
+      )
     end
 
     def project(id)
-      case id
-      when 'valid id'   then OpenStruct.new(name: "Steal the Maltese Falcon")
-      when 'invalid id' then raise FakeBadProjectError.new
+      if id == '00000'
+        ShadyJob.new(name: "Steal the Maltese Falcon")
+      else
+        raise PhonyBadProjectError.new
       end
     end
+
   end
 
-  class FakeAuthenticationError < StandardError
+  class FakeName < OpenStruct
+  end
+
+  class ShadyJob < OpenStruct
+  end
+
+  class PhonyAuthenticationError < StandardError
     def message
       "Invalid API token."
     end
@@ -46,7 +37,7 @@ module FraudulentObjects
     end
   end
 
-  class FakeBadProjectError < StandardError
+  class PhonyBadProjectError < StandardError
     def message
       "Project ID not found."
     end
