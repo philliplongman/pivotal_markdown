@@ -2,6 +2,14 @@ module PivotalMarkdown
   class Error
 
     class << self
+      def invalid_api_token
+        StandardError.new "Invalid API token."
+      end
+
+      def invalid_project_id
+        StandardError.new "Project ID not found."
+      end
+
       def non_markdown_file
         StandardError.new(
           "File must be in Markdown format. " +

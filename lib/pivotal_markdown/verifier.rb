@@ -34,7 +34,7 @@ module PivotalMarkdown
       @me ||= begin
         client.me
       rescue
-        raise StandardError.new "Invalid API token."
+        raise Error.invalid_api_token
       end
     end
 
@@ -44,9 +44,9 @@ module PivotalMarkdown
 
       rescue => error
         if error.response[:body]["code"] == "invalid_authentication"
-          raise StandardError.new "Invalid API token."
+          raise Error.invalid_api_token
         else
-          raise StandardError.new "Project ID not found."
+          raise Error.invalid_project_id
         end
       end
     end
