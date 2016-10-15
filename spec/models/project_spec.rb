@@ -69,6 +69,18 @@ module PivotalMarkdown
         end
       end
 
+      describe '#reset' do
+        it "resets the default project" do
+          config.default_project = "project"
+          config.save
+
+          output = "Default project reset."
+          expect(STDOUT).to receive(:puts).with output
+          Project.new.reset
+          expect(config.default_project).to be nil
+        end
+      end
+
       context "when there is no stored API token" do
         let(:output) { "No API token saved. Run `ptmd api --set TOKEN` to set one." }
 
