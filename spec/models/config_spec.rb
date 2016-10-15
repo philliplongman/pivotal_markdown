@@ -3,21 +3,14 @@ require "spec_helper"
 module PivotalMarkdown
   describe Config do
 
-    before :each do
-      backup_config
-    end
-
-    after :each do
-      restore_config
-    end
+    let(:config_file) { File.join(Dir.home, ".pivotal_markdown") }
 
     describe '#initialize' do
       it "creates a new config file if none exists" do
-        expected_file = File.join(Dir.home, ".pivotal_markdown")
-        expect(File.exist? expected_file).to be false
+        FileUtils.remove config_file if File.exist? config_file
 
         Config.new
-        expect(File.exist? expected_file).to be true
+        expect(File.exist? config_file).to be true
       end
     end
 
@@ -25,13 +18,13 @@ module PivotalMarkdown
       it "saves the options hash to config file" do
         config = Config.new
 
-        contents = File.read File.join(Dir.home, ".pivotal_markdown")
+        contents = File.read config_file
         expect(contents).to eq "--- {}\n"
 
         config["Jesus saves"] = "He takes half damage"
         config.save
 
-        contents = File.read File.join(Dir.home, ".pivotal_markdown")
+        contents = File.read config_file
         expect(contents).to eq "---\nJesus saves: He takes half damage\n"
       end
 
@@ -41,5 +34,6 @@ module PivotalMarkdown
         expect(config.instance_variable_get :@options).to be nil
       end
     end
+
   end
 end
