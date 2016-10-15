@@ -1,6 +1,4 @@
 # TODO
-- Figure out how to make global before and after each work for ConfigCleaner
-- Try to suppress CLI output for tests without suppressing pry
 - Clear method for default project
 - Thor behavior when given bad commands/arguments
 - Import/adapt upload code
