@@ -8,7 +8,7 @@ module PivotalMarkdown
 
       before :each do
         backup_config
-        stub_pivotal_tracker_api
+        allow(TrackerApi::Client).to receive(:new) { |arg| DishonestClient.new(arg) }
       end
 
       after :each do
@@ -16,14 +16,13 @@ module PivotalMarkdown
       end
 
       describe '#set' do
-
         it "verifies the project" do
           config.api_token = "valid token"
           config.save
 
           valid_id = "00000"
-          readout = "Default project set to (00000) Steal the Maltese Falcon."
-          expect(STDOUT).to receive(:puts).with(readout)
+          output = "Default project set to (00000) Steal the Maltese Falcon."
+          expect(STDOUT).to receive(:puts).with output
           Project.new.set valid_id
         end
 
@@ -36,9 +35,31 @@ module PivotalMarkdown
           expect(config.default_project).to eq valid_id
         end
 
-        it "raises an error if there is no stored API token" do
-          error = "No API token saved. Run `ptmd api --set TOKEN` to set one."
-          expect { Project.new.set "valid ID" }.to raise_error error
+        it "fails if the project is invalid" do
+          config.api_token = "valid token"
+          config.save
+
+          output = "The object you tried to access could not be found..."
+          expect(STDOUT).to receive(:puts).with output
+          Project.new.set "invalid ID"
+          expect(config.default_project).to eq nil
+        end
+
+        it "fails if there is no stored API token" do
+          output = "No API token saved. Run `ptmd api --set TOKEN` to set one."
+          expect(STDOUT).to receive(:puts).with output
+          Project.new.set "valid ID"
+          expect(config.default_project).to eq nil
+        end
+
+        it "fails if the stored API token is invalid" do
+          config.api_token = "invalid token"
+          config.save
+
+          output = "Invalid authentication credentials were presented."
+          expect(STDOUT).to receive(:puts).with output
+          Project.new.set "valid ID"
+          expect(config.default_project).to eq nil
         end
       end
 
@@ -50,22 +71,44 @@ module PivotalMarkdown
           config.default_project = valid_id
           config.save
 
-          readout = "Default project set to (00000) Steal the Maltese Falcon."
-          expect(STDOUT).to receive(:puts).with(readout)
+          output = "Default project set to (00000) Steal the Maltese Falcon."
+          expect(STDOUT).to receive(:puts).with output
           Project.new.check
         end
 
-        it "raises an error if there is no stored API token" do
-          error = "No API token saved. Run `ptmd api --set TOKEN` to set one."
-          expect { Project.new.check }.to raise_error error
-        end
-
-        it "raises an error if there is no default project stored" do
+        it "gives instructions if there is no default project stored" do
           config.api_token = "valid token"
           config.save
 
-          error = "No default project set. Run `ptmd default --set ID` to set one."
-          expect { Project.new.check }.to raise_error error
+          output = "No default project set. Run `ptmd default --set ID` to set one."
+          expect(STDOUT).to receive(:puts).with output
+          Project.new.check
+        end
+
+        it "fails if the project is invalid" do
+          config.api_token = "valid token"
+          config.default_project = "invalid ID"
+          config.save
+
+          output = "The object you tried to access could not be found..."
+          expect(STDOUT).to receive(:puts).with output
+          Project.new.check
+        end
+
+        it "fails if there is no stored API token" do
+          output = "No API token saved. Run `ptmd api --set TOKEN` to set one."
+          expect(STDOUT).to receive(:puts).with output
+          Project.new.check
+        end
+
+        it "fails if the stored API token is invalid" do
+          config.api_token = "invalid token"
+          config.default_project = "invalid ID"
+          config.save
+
+          output = "Invalid authentication credentials were presented."
+          expect(STDOUT).to receive(:puts).with output
+          Project.new.check
         end
       end
 
