@@ -1,9 +1,11 @@
 # TODO
-- Try to suppress CLI output for tests
+- Figure out how to make global before and after each work for ConfigCleaner
+- Try to suppress CLI output for tests without suppressing pry
 - Clear method for default project
+- Thor behavior when given bad commands/arguments
 - Import/adapt upload code
 - Make the optional top section import as an options hash
 - Write readme
 - Release gem 1.0
 - Add generator to create empty files
-- Output PT story as top-of-test comment block
+- Output PT story as comment block for feature tests

@@ -4,8 +4,6 @@ module PivotalMarkdown
   module CLI
     describe Token do
 
-      let(:config) { Config.new }
-
       before :each do
         backup_config
         allow(TrackerApi::Client).to receive(:new) { |arg| DishonestClient.new(arg) }
@@ -14,6 +12,8 @@ module PivotalMarkdown
       after :each do
         restore_config
       end
+
+      let(:config) { Config.new }
 
       describe '#set' do
         it "verifies the token" do
