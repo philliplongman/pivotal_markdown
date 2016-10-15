@@ -4,15 +4,6 @@ module PivotalMarkdown
   module CLI
     describe Project do
 
-      before :each do
-        backup_config
-        allow(TrackerApi::Client).to receive(:new) { |arg| DishonestClient.new(arg) }
-      end
-
-      after :each do
-        restore_config
-      end
-
       let(:config) { Config.new }
 
       describe '#set' do

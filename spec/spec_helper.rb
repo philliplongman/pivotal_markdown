@@ -19,4 +19,13 @@ RSpec.configure do |config|
   #   stfu { example.run }
   # end
 
+  config.before :each do
+    backup_config
+    allow(TrackerApi::Client).to receive(:new) { |arg| DishonestClient.new(arg) }
+  end
+
+  config.after :each do
+    restore_config
+  end
+
 end

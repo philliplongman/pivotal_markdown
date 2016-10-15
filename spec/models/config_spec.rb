@@ -3,14 +3,6 @@ require "spec_helper"
 module PivotalMarkdown
   describe Config do
 
-    before :each do
-      backup_config
-    end
-
-    after :each do
-      restore_config
-    end
-
     describe '#initialize' do
       it "creates a new config file if none exists" do
         expected_file = File.join(Dir.home, ".pivotal_markdown")
@@ -41,5 +33,6 @@ module PivotalMarkdown
         expect(config.instance_variable_get :@options).to be nil
       end
     end
+    
   end
 end
