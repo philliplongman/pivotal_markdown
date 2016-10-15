@@ -1,13 +1,17 @@
 module ConfigCleaner
+  # Works like database_cleaner for the config file
+  # Backs up ~/.pivotal_markdown before each test and restores it after.
 
   def backup_config
-    FileUtils.move config_file, backup_file if File.exists? config_file
+    FileUtils.remove backup_file if File.exist? backup_file
+
+    FileUtils.move config_file, backup_file if File.exist? config_file
   end
 
   def restore_config
-    FileUtils.remove config_file if File.exists? config_file
+    FileUtils.remove config_file if File.exist? config_file
 
-    FileUtils.move backup_file, config_file if File.exists? backup_file
+    FileUtils.move backup_file, config_file if File.exist? backup_file
   end
 
   private
