@@ -4,18 +4,31 @@ module FraudulentObjects
 
   class DishonestClient
 
+    def initialize(options)
+      @token = options[:token]
+    end
+
     def me
-      FakeName.new(
-        name: "Brigid O'Shaughnessy",
-        email: "misswonderly@gmail.com"
-      )
+      if @token == "invalid token"
+        raise PhonyError.new "Invalid authentication credentials were presented."
+      else
+        FakeName.new(
+          name: "Brigid O'Shaughnessy",
+          email: "misswonderly@gmail.com"
+        )
+      end
     end
 
     def project(id)
-      if id == '00000'
-        ShadyJob.new(id: "00000", name: "Steal the Maltese Falcon")
+      if @token == "invalid token"
+        raise PhonyError.new "Invalid authentication credentials were presented."
+      elsif id == "invalid ID"
+        raise PhonyError.new "The object you tried to access could not be found..."
       else
-        raise PhonyBadProjectError.new
+        ShadyJob.new(
+          id: "00000",
+          name: "Steal the Maltese Falcon"
+        )
       end
     end
 
@@ -27,23 +40,10 @@ module FraudulentObjects
   class ShadyJob < OpenStruct
   end
 
-  class PhonyAuthenticationError < StandardError
-    def message
-      "Invalid API token."
-    end
-
+  class PhonyError < StandardError
     def response
-      { body: { "code" => "invalid_authentication" } }
+      { body: { "error" => message } }
     end
   end
 
-  class PhonyBadProjectError < StandardError
-    def message
-      "Project ID not found."
-    end
-
-    def response
-      { body: { "code" => nil } }
-    end
-  end
 end
