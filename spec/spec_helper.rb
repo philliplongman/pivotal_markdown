@@ -15,8 +15,8 @@ Coveralls.wear!
 
 RSpec.configure do |config|
 
-  config.around :each do |example|
-    stfu { example.run }
-  end
+  # config.around :each do |example|
+  #   stfu { example.run }
+  # end
 
 end
