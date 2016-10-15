@@ -17,7 +17,7 @@ module PivotalMarkdown
           Project.new.set valid_id
         end
 
-        it "records the project in the config file" do
+        it "configures the default project" do
           config.api_token = "valid token"
           config.save
 
@@ -38,7 +38,7 @@ module PivotalMarkdown
       end
 
       describe '#check' do
-        it "displays the stored project" do
+        it "displays the configured project" do
           valid_id = "00000"
           config.api_token = "valid token"
           config.default_project = valid_id
@@ -49,7 +49,7 @@ module PivotalMarkdown
           Project.new.check
         end
 
-        it "gives instructions if there is no default project stored" do
+        it "gives instructions if there is no default project configured" do
           config.api_token = "valid token"
           config.save
 
@@ -81,7 +81,7 @@ module PivotalMarkdown
         end
       end
 
-      context "when there is no stored API token" do
+      context "when there is no API token configured" do
         let(:output) { "No API token saved. Run `ptmd api --set TOKEN` to set one." }
 
         describe '#set' do
@@ -100,7 +100,7 @@ module PivotalMarkdown
         end
       end
 
-      context "when the stored API token is invalid" do
+      context "when the configured API token is invalid" do
         let(:output) { "Invalid authentication credentials were presented." }
 
         describe '#set' do
