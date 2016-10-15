@@ -13,18 +13,22 @@ Coveralls.wear!
 
 RSpec.configure do |config|
 
+  config.before :suite do
+    backup_config_file
+  end
+
   config.before :each do
-    backup_config
+    clean_config_file
 
     # Mock API calls to Pivotal Tracker
     allow(TrackerApi::Client).to receive(:new) { |arg| DishonestClient.new(arg) }
 
-    # Return puts output as a string to keep it out of the terminal
+    # Keep stdout from the gem out of the test output.
     allow(STDOUT).to receive(:puts)
   end
 
-  config.after :each do
-    restore_config
+  config.after :suite do
+    restore_config_file
   end
 
 end
