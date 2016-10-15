@@ -35,6 +35,13 @@ module PivotalMarkdown
         puts error_message error
       end
 
+      desc "reset", "Clear configured API token"
+      def reset
+        config.default_project = nil
+        config.save
+        puts "Default project reset."
+      end
+
     end
   end
 end

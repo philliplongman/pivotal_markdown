@@ -13,7 +13,7 @@ module PivotalMarkdown
           Token.new.set "valid token"
         end
 
-        it "records the token in the config file" do
+        it "configures the token" do
           Token.new.set "valid token"
           expect(config.api_token).to eq "valid token"
         end
@@ -27,7 +27,7 @@ module PivotalMarkdown
       end
 
       describe '#check' do
-        it "displays the stored token" do
+        it "displays the configured token" do
           config.api_token = "valid token"
           config.save
 
@@ -36,13 +36,13 @@ module PivotalMarkdown
           Token.new.check
         end
 
-        it "gives instructions if there is no stored token" do
+        it "gives instructions if there is no token configured" do
           output = "No API token saved. Run `ptmd api --set TOKEN` to set one."
           expect(STDOUT).to receive(:puts).with output
           Token.new.check
         end
 
-        it "fails if the stored token is invalid" do
+        it "fails if the configured token is invalid" do
           config.api_token = "invalid token"
           config.save
 
