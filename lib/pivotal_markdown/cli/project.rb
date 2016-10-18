@@ -5,6 +5,8 @@ module PivotalMarkdown
     class Project < Thor
       include Shared
 
+      default_command :check
+
       desc "set PROJECT_ID", "Set default project"
       def set(id)
         if config.api_token

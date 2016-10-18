@@ -5,6 +5,8 @@ module PivotalMarkdown
     class Token < Thor
       include Shared
 
+      default_command :check
+
       desc "set TOKEN", "Set API token to access"
       def set(token)
         user = client(token).me
