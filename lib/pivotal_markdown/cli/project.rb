@@ -13,7 +13,7 @@ module PivotalMarkdown
           project = client(config.api_token).project(id)
           config.default_project = id
           config.save
-          puts "Default project set to (#{project.id}) #{project.name}."
+          puts "Default project set to (#{project.id}) #{project.name}.\n\n"
         else
           puts Message.no_api_token
         end
@@ -25,7 +25,7 @@ module PivotalMarkdown
       def check
         if config.api_token && config.default_project
           project = client(config.api_token).project(config.default_project)
-          puts "Default project set to (#{project.id}) #{project.name}."
+          puts "Default project set to (#{project.id}) #{project.name}.\n\n"
 
         elsif config.api_token.nil?
           puts Message.no_api_token
@@ -41,7 +41,7 @@ module PivotalMarkdown
       def reset
         config.default_project = nil
         config.save
-        puts "Default project reset."
+        puts "Default project reset.\n\n"
       end
 
     end

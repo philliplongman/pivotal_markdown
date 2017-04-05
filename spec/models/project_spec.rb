@@ -11,7 +11,7 @@ module PivotalMarkdown
           config.api_token = "valid token"
           config.save
 
-          output = "Default project set to (00000) Steal the Maltese Falcon."
+          output = "Default project set to (00000) Steal the Maltese Falcon.\n\n"
           expect(STDOUT).to receive(:puts).with output
           valid_id = "00000"
           Project.new.set valid_id
@@ -30,7 +30,7 @@ module PivotalMarkdown
           config.api_token = "valid token"
           config.save
 
-          output = "The object you tried to access could not be found..."
+          output = "The object you tried to access could not be found...\n\n"
           expect(STDOUT).to receive(:puts).with output
           Project.new.set "invalid ID"
           expect(config.default_project).to eq nil
@@ -44,7 +44,7 @@ module PivotalMarkdown
           config.default_project = valid_id
           config.save
 
-          output = "Default project set to (00000) Steal the Maltese Falcon."
+          output = "Default project set to (00000) Steal the Maltese Falcon.\n\n"
           expect(STDOUT).to receive(:puts).with output
           Project.new.check
         end
@@ -62,7 +62,7 @@ module PivotalMarkdown
           config.default_project = "invalid ID"
           config.save
 
-          output = "The object you tried to access could not be found..."
+          output = "The object you tried to access could not be found...\n\n"
           expect(STDOUT).to receive(:puts).with output
           Project.new.check
         end
@@ -73,7 +73,7 @@ module PivotalMarkdown
           config.default_project = "project"
           config.save
 
-          output = "Default project reset."
+          output = "Default project reset.\n\n"
           expect(STDOUT).to receive(:puts).with output
           Project.new.reset
           expect(config.default_project).to be nil
@@ -98,7 +98,7 @@ module PivotalMarkdown
       end
 
       context "when the configured API token is invalid" do
-        let(:output) { "Invalid authentication credentials were presented." }
+        let(:output) { "Invalid authentication credentials were presented.\n\n" }
 
         describe '#set' do
           it "fails" do

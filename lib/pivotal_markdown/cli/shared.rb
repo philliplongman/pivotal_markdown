@@ -16,9 +16,9 @@ module PivotalMarkdown
 
       def error_message(error)
         if error.response.nil?
-          "No internet connection."
+          "No internet connection.\n\n"
         else
-          error.response[:body]["error"]
+          error.response[:body]["error"] + "\n\n"
         end
       end
 

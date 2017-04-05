@@ -8,7 +8,7 @@ module PivotalMarkdown
 
       describe '#set' do
         it "verifies the token" do
-          output = "Token set for Brigid O'Shaughnessy - misswonderly@gmail.com."
+          output = "Token set for Brigid O'Shaughnessy - misswonderly@gmail.com.\n\n"
           expect(STDOUT).to receive(:puts).with output
           Token.new.set "valid token"
         end
@@ -19,7 +19,7 @@ module PivotalMarkdown
         end
 
         it "fails if the token is invalid" do
-          output = "Invalid authentication credentials were presented."
+          output = "Invalid authentication credentials were presented.\n\n"
           expect(STDOUT).to receive(:puts).with output
           Token.new.set "invalid token"
           expect(config.api_token).to eq nil
@@ -31,7 +31,7 @@ module PivotalMarkdown
           config.api_token = "valid token"
           config.save
 
-          output = "Token set for Brigid O'Shaughnessy - misswonderly@gmail.com."
+          output = "Token set for Brigid O'Shaughnessy - misswonderly@gmail.com.\n\n"
           expect(STDOUT).to receive(:puts).with output
           Token.new.check
         end
@@ -45,7 +45,7 @@ module PivotalMarkdown
           config.api_token = "invalid token"
           config.save
 
-          output = "Invalid authentication credentials were presented."
+          output = "Invalid authentication credentials were presented.\n\n"
           expect(STDOUT).to receive(:puts).with output
           Token.new.check
         end
