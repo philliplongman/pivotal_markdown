@@ -10,6 +10,7 @@ module PivotalMarkdown
         return help          unless file
         return no_file(file) unless File.exist?(file)
         return not_markdown  unless file.end_with?(".md")
+        return no_api_token  unless config.api_token
 
         MarkdownStory.parse_file(file).each(&:upload)
       rescue => error
@@ -19,12 +20,15 @@ module PivotalMarkdown
       private
 
       def no_file(file)
-        puts %(File not found "#{file}"\n\n)
-        help
+        puts %(File not found #{file}\n\n)
       end
 
       def not_markdown
         puts Message.non_markdown_file
+      end
+
+      def no_api_token
+        puts Message.no_api_token
       end
 
     end
