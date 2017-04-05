@@ -3,14 +3,6 @@ module PivotalMarkdown
 
     class << self
 
-      def invalid_api_token
-        "Invalid API token."
-      end
-
-      def invalid_project_id
-        "Project ID not found."
-      end
-
       def non_markdown_file
         url = %q("https://github.com/philliplongman/pivotal_markdown")
         "File must be in Markdown format.\n" +
