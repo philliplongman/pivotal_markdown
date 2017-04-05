@@ -12,8 +12,9 @@ module PivotalMarkdown
       end
 
       def non_markdown_file
-        "File must be in Markdown format. " +
-        'See "https://github.com/philliplongman/pivotal_markdown" for more information.'
+        url = %q("https://github.com/philliplongman/pivotal_markdown")
+        "File must be in Markdown format.\n" +
+        "See #{url} for more information."
       end
 
       def no_api_token
