@@ -53,8 +53,7 @@ module PivotalMarkdown
           config.api_token = "valid token"
           config.save
 
-          output = "No default project set. Run `ptmd default --set ID` to set one."
-          expect(STDOUT).to receive(:puts).with output
+          expect(STDOUT).to receive(:puts).with Message.no_default_project
           Project.new.check
         end
 
@@ -82,11 +81,9 @@ module PivotalMarkdown
       end
 
       context "when there is no API token configured" do
-        let(:output) { "No API token saved. Run `ptmd api --set TOKEN` to set one." }
-
         describe '#set' do
           it "fails" do
-            expect(STDOUT).to receive(:puts).with output
+            expect(STDOUT).to receive(:puts).with Message.no_api_token
             Project.new.set "valid ID"
             expect(config.default_project).to eq nil
           end
@@ -94,7 +91,7 @@ module PivotalMarkdown
 
         describe '#check' do
           it "fails" do
-            expect(STDOUT).to receive(:puts).with output
+            expect(STDOUT).to receive(:puts).with Message.no_api_token
             Project.new.check
           end
         end

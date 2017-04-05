@@ -37,8 +37,7 @@ module PivotalMarkdown
         end
 
         it "gives instructions if there is no token configured" do
-          output = "No API token saved. Run `ptmd api --set TOKEN` to set one."
-          expect(STDOUT).to receive(:puts).with output
+          expect(STDOUT).to receive(:puts).with Message.no_api_token
           Token.new.check
         end
 
