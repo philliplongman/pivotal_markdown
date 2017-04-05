@@ -28,9 +28,7 @@ module PivotalMarkdown
 
       describe '#check' do
         it "displays the configured token" do
-          config.api_token = "valid token"
-          config.save
-
+          config.update(api_token: "valid token")
           output = "Token set for Brigid O'Shaughnessy - misswonderly@gmail.com.\n\n"
           expect(STDOUT).to receive(:puts).with output
           Token.new.check
@@ -42,9 +40,7 @@ module PivotalMarkdown
         end
 
         it "fails if the configured token is invalid" do
-          config.api_token = "invalid token"
-          config.save
-
+          config.update(api_token: "invalid token")
           output = "Invalid authentication credentials were presented.\n\n"
           expect(STDOUT).to receive(:puts).with output
           Token.new.check

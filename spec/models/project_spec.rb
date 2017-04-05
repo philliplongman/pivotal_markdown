@@ -8,9 +8,7 @@ module PivotalMarkdown
 
       describe '#set' do
         it "verifies the project" do
-          config.api_token = "valid token"
-          config.save
-
+          config.update(api_token: "valid token")
           output = "Default project set to (00000) Steal the Maltese Falcon.\n\n"
           expect(STDOUT).to receive(:puts).with output
           valid_id = "00000"
@@ -18,18 +16,14 @@ module PivotalMarkdown
         end
 
         it "configures the default project" do
-          config.api_token = "valid token"
-          config.save
-
+          config.update(api_token: "valid token")
           valid_id = "00000"
           Project.new.set valid_id
           expect(config.default_project).to eq valid_id
         end
 
         it "fails if the project is invalid" do
-          config.api_token = "valid token"
-          config.save
-
+          config.update(api_token: "valid token")
           output = "The object you tried to access could not be found...\n\n"
           expect(STDOUT).to receive(:puts).with output
           Project.new.set "invalid ID"
@@ -39,29 +33,20 @@ module PivotalMarkdown
 
       describe '#check' do
         it "displays the configured project" do
-          valid_id = "00000"
-          config.api_token = "valid token"
-          config.default_project = valid_id
-          config.save
-
+          config.update(api_token: "valid token", default_project: "00000")
           output = "Default project set to (00000) Steal the Maltese Falcon.\n\n"
           expect(STDOUT).to receive(:puts).with output
           Project.new.check
         end
 
         it "gives instructions if there is no default project configured" do
-          config.api_token = "valid token"
-          config.save
-
+          config.update(api_token: "valid token")
           expect(STDOUT).to receive(:puts).with Message.no_default_project
           Project.new.check
         end
 
         it "fails if the project is invalid" do
-          config.api_token = "valid token"
-          config.default_project = "invalid ID"
-          config.save
-
+          config.update(api_token: "valid token", default_project: "invalid ID")
           output = "The object you tried to access could not be found...\n\n"
           expect(STDOUT).to receive(:puts).with output
           Project.new.check
@@ -70,9 +55,7 @@ module PivotalMarkdown
 
       describe '#reset' do
         it "resets the default project" do
-          config.default_project = "project"
-          config.save
-
+          config.update(default_project: "project")
           output = "Default project reset.\n\n"
           expect(STDOUT).to receive(:puts).with output
           Project.new.reset
@@ -102,9 +85,7 @@ module PivotalMarkdown
 
         describe '#set' do
           it "fails" do
-            config.api_token = "invalid token"
-            config.save
-
+            config.update(api_token: "invalid token")
             expect(STDOUT).to receive(:puts).with output
             Project.new.set "valid ID"
             expect(config.default_project).to eq nil
@@ -113,10 +94,7 @@ module PivotalMarkdown
 
         describe '#check' do
           it "fails" do
-            config.api_token = "invalid token"
-            config.default_project = "valid ID"
-            config.save
-
+            config.update(api_token: "invalid token", default_project: "valid ID")
             expect(STDOUT).to receive(:puts).with output
             Project.new.check
           end

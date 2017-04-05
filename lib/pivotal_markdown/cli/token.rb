@@ -10,8 +10,7 @@ module PivotalMarkdown
       desc "set TOKEN", "Set API token to access"
       def set(token)
         user = client(token).me
-        config.api_token = token
-        config.save
+        config.update(api_token: token)
         puts "Token set for #{user.name} - #{user.email}.\n\n"
       rescue => error
         puts error_message error
