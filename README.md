@@ -4,30 +4,30 @@
 [![Code Climate](https://codeclimate.com/github/philliplongman/pivotal_markdown/badges/gpa.svg)](https://codeclimate.com/github/philliplongman/pivotal_markdown)
 [![Coverage Status](https://coveralls.io/repos/github/philliplongman/pivotal_markdown/badge.svg?branch=master)](https://coveralls.io/github/philliplongman/pivotal_markdown?branch=master)
 
-PivotalMarkdown is a gem to facilitate posting stories to PivotalTracker. I was writing all of the stories for my team, and I found it was easiest for me to compose them in Markdown prior to posting them.
+PivotalMarkdown is a gem to facilitate posting stories to PivotalTracker.
 
-This gem is intended to take Markdown files in the format I used, parse them into stories and epics, and add them to a PT project.
+I was writing all of the stories for my team, and I found it was easiest for me to compose them in Markdown prior to posting them. This gem is intended to take Markdown files in the format I used, parse them into stories and epics, and add them to a PT project.
 
-The gem was meant to be an expansion of the `pivotal-uploader` ([here](https://github.com/philliplongman/pivotal-uploader)) script I wrote at Launch Academy's Ship It Saturday hackathon. Right now it only handles setting your API token and a default project in a `.pivotal_markdown` file.
+PivotalMarkdown was meant to be an expansion of the `pivotal-uploader` ([here](https://github.com/philliplongman/pivotal-uploader)) script I wrote at Launch Academy's Ship It Saturday hackathon. But since I am no longer writing stories for that team, I have stopped developing the gem for now.
 
-Since I am no longer writing stories for that team, I have stopped developing the gem for now.
+Currently it only handles setting your API token and a default project in a `.pivotal_markdown` file.
 
 ## Usage
 
 ```
 Commands:
-  ptmd help [COMMAND]   # Describe available commands or one specific command
-  ptmd project COMMAND  # Configure project to default to when none is specified
-  ptmd token COMMAND    # Configure API token to access Pivotal Tracker
+  ptmd help [COMMAND]          # Describe available commands or one specific command
+  ptmd project COMMAND         # Configure project to default to when none is specified
+  ptmd token COMMAND           # Configure API token to access Pivotal Tracker
 
   ptmd project check           # Check configured default project
   ptmd project help [COMMAND]  # Describe subcommands or one specific subcommand
   ptmd project reset           # Clear configured API token
   ptmd project set PROJECT_ID  # Set default project
 
-  ptmd token check           # Check configured API token
-  ptmd token help [COMMAND]  # Describe subcommands or one specific subcommand
-  ptmd token set TOKEN       # Set API token to access
+  ptmd token check             # Check configured API token
+  ptmd token help [COMMAND]    # Describe subcommands or one specific subcommand
+  ptmd token set TOKEN         # Set API token to access
 ```
 
 ## Development
