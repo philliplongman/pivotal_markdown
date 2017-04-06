@@ -33,6 +33,7 @@ RSpec.configure do |config|
 
     # Keep stdout responses from the gem out of the test output.
     allow(STDOUT).to receive(:puts)
+    allow(Kernel).to receive(:exit)
   end
 
   config.after :suite do
