@@ -1,5 +1,3 @@
-require "pry"
-
 require "pivotal_markdown/cli"
 require "pivotal_markdown/config"
 require "pivotal_markdown/markdown_stories"
