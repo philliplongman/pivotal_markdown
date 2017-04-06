@@ -34,7 +34,7 @@ Your API token and default project are stored in a `.pivotal_markdown` file.
 ## Markdown story format
 
 ```markdown
-Project: 1883123
+Project: 1234567
 
 
 # Example feature
