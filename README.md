@@ -14,10 +14,10 @@ The gem was nearing its initial release, but since I am no longer writing storie
 
 ```
 Commands:
-  ptmd [upload] FILE           # Parse Markdown file and upload stories to Pivotal Tracker
   ptmd help [COMMAND]          # Describe available commands or one specific command
   ptmd project COMMAND         # Configure project to default to when none is specified
   ptmd token COMMAND           # Configure API token to access Pivotal Tracker
+  ptmd upload FILE           # Parse Markdown file and upload stories to Pivotal Tracker
 
   ptmd project check           # Check configured default project
   ptmd project reset           # Clear configured API token
