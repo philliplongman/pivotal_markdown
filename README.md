@@ -20,16 +20,13 @@ Commands:
   ptmd token COMMAND           # Configure API token to access Pivotal Tracker
 
   ptmd project check           # Check configured default project
-  ptmd project help [COMMAND]  # Describe subcommands or one specific subcommand
   ptmd project reset           # Clear configured API token
   ptmd project set PROJECT_ID  # Set default project
 
   ptmd token check             # Check configured API token
-  ptmd token help [COMMAND]    # Describe subcommands or one specific subcommand
   ptmd token set TOKEN         # Set API token to access
 
   ptmd upload FILE             # Parse Markdown file and upload stories to Pivotal Tracker
-  ptmd upload help [COMMAND]   # Describe subcommands or one specific subcommand
 ```
 
 Your API token and default project are stored in a `.pivotal_markdown` file.

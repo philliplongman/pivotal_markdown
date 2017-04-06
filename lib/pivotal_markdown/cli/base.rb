@@ -8,7 +8,7 @@ module PivotalMarkdown
       desc "project COMMAND", "Configure project to default to when none is specified"
       subcommand 'project', Project
 
-      desc "[upload] FILE", "Parse Markdown file and upload stories to Pivotal Tracker"
+      desc "upload FILE", "Parse Markdown file and upload stories to Pivotal Tracker"
       subcommand 'upload', Upload
 
     end
