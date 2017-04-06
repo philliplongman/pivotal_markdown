@@ -12,9 +12,9 @@ module PivotalMarkdown
         return not_markdown  unless file.end_with?(".md")
         return no_api_token  unless config.api_token
 
-        MarkdownStory.parse_file(file).each(&:upload)
+        MarkdownStories.new(file).upload
       rescue => error
-        puts error
+        puts error_message error
       end
 
       private

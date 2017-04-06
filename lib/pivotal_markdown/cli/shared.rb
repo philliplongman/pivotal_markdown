@@ -15,10 +15,22 @@ module PivotalMarkdown
       end
 
       def error_message(error)
-        if error.response.nil?
-          "No internet connection.\n\n"
+        return "No response. Check internet connection.\n\n" if error.response.nil?
+        binding.pry
+        case error.class.to_s
+        when "RestClient::Response" then error.response.body  + "\n\n"
+        when "TrackerApi::Error"    then error.response[:body]["error"] + "\n\n"
+        end
+      end
+
+      def error_message(error)
+        response = error.response
+        if response.nil?
+          "No response. Check internet connection.\n\n"
+        elsif response.respond_to? :body
+          response.body  + "\n"
         else
-          error.response[:body]["error"] + "\n\n"
+          response[:body]["error"] + "\n\n"
         end
       end
 

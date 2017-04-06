@@ -1,5 +1,6 @@
 require "thor"
 require "tracker_api"
+require "pivotal-tracker"
 
 require_relative "cli/shared"
 
