@@ -7,6 +7,11 @@ module PivotalMarkdown
       File.write(config_file, {}.to_yaml) unless File.exist? config_file
     end
 
+    def update(**options_hash)
+      options_hash.each { |key, value| options[key.to_s] = value }
+      save
+    end
+
     def api_token
       options["api_token"]
     end
@@ -33,7 +38,7 @@ module PivotalMarkdown
 
     def save
       File.write(config_file, options.to_yaml)
-      @options = nil # "closes" the file
+      @options = nil  # "closes" the file
     end
 
     private

@@ -7,4 +7,4 @@ require "pivotal_markdown"
 # with your gem easier. You can also use a different console, if you like.
 
 require "pry"
-Pry.start
+PivotalMarkdown.pry

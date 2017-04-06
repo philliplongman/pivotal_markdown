@@ -8,7 +8,7 @@ module PivotalMarkdown
 
       describe '#set' do
         it "verifies the token" do
-          output = "Token set for Brigid O'Shaughnessy - misswonderly@gmail.com."
+          output = "Token set for Brigid O'Shaughnessy - misswonderly@gmail.com.\n\n"
           expect(STDOUT).to receive(:puts).with output
           Token.new.set "valid token"
         end
@@ -19,7 +19,7 @@ module PivotalMarkdown
         end
 
         it "fails if the token is invalid" do
-          output = "Invalid authentication credentials were presented."
+          output = "Invalid authentication credentials were presented.\n\n"
           expect(STDOUT).to receive(:puts).with output
           Token.new.set "invalid token"
           expect(config.api_token).to eq nil
@@ -28,25 +28,20 @@ module PivotalMarkdown
 
       describe '#check' do
         it "displays the configured token" do
-          config.api_token = "valid token"
-          config.save
-
-          output = "Token set for Brigid O'Shaughnessy - misswonderly@gmail.com."
+          config.update(api_token: "valid token")
+          output = "Token set for Brigid O'Shaughnessy - misswonderly@gmail.com.\n\n"
           expect(STDOUT).to receive(:puts).with output
           Token.new.check
         end
 
         it "gives instructions if there is no token configured" do
-          output = "No API token saved. Run `ptmd api --set TOKEN` to set one."
-          expect(STDOUT).to receive(:puts).with output
+          expect(STDOUT).to receive(:puts).with Message.no_api_token
           Token.new.check
         end
 
         it "fails if the configured token is invalid" do
-          config.api_token = "invalid token"
-          config.save
-
-          output = "Invalid authentication credentials were presented."
+          config.update(api_token: "invalid token")
+          output = "Invalid authentication credentials were presented.\n\n"
           expect(STDOUT).to receive(:puts).with output
           Token.new.check
         end
