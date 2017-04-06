@@ -43,7 +43,7 @@ module PivotalMarkdown
           config.update(api_token: "valid token")
           output = ["No project specified in file.", Message.no_default_project]
           output.each { |line| expect(STDOUT).to receive(:puts).with line }
-          -> { Upload.new.stories no_project }.should raise_error SystemExit
+          expect(-> { Upload.new.stories no_project }).to raise_error SystemExit
         end
 
         it "fails with an invalid project" do
