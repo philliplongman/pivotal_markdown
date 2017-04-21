@@ -13,19 +13,16 @@ module PivotalMarkdown
         config.update(api_token: token)
         puts "Token set for #{user.name} - #{user.email}.\n\n"
       rescue => error
-        puts error_message error
+        output error_message(error)
       end
 
       desc "check", "Check configured API token"
       def check
-        if config.api_token
-          user = client(config.api_token).me
-          puts "Token set for #{user.name} - #{user.email}.\n\n"
-        else
-          puts Message.no_api_token
-        end
+        check_config_for_api_token
+        user = client(config.api_token).me
+        puts "Token set for #{user.name} - #{user.email}.\n\n"
       rescue => error
-        puts error_message error
+        output error_message(error)
       end
 
     end

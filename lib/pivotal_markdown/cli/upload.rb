@@ -7,28 +7,24 @@ module PivotalMarkdown
 
       desc "FILE", "Parse Markdown file and upload stories to Pivotal Tracker"
       def stories(file=nil)
-        return help          unless file
-        return no_file(file) unless File.exist?(file)
-        return not_markdown  unless file.end_with?(".md")
-        return no_api_token  unless config.api_token
+        return help unless file
+        confirm_file_exists file
+        confirm_file_is_markdown file
+        check_config_for_api_token
 
         MarkdownStories.new(file).upload
       rescue => error
-        puts error_message error
+        output error_message(error)
       end
 
       private
 
-      def no_file(file)
-        puts %(File not found #{file}\n\n)
+      def confirm_file_exists(file)
+        raise FileNotFoundError.new(file) unless File.exist?(file)
       end
 
-      def not_markdown
-        puts Message.non_markdown_file
-      end
-
-      def no_api_token
-        puts Message.no_api_token
+      def confirm_file_is_markdown(file)
+        raise MarkdownFormatError unless file.end_with?(".md")
       end
 
     end

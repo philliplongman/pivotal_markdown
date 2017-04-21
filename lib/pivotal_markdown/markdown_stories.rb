@@ -7,7 +7,12 @@ module PivotalMarkdown
 
     def initialize(markdown_file)
       @story_blocks = File.read(markdown_file).split(/^(?=[#])/)
-      @project = get_project
+      if project_id
+        @project = PivotalTracker::Project.find project_id
+      else
+        puts "No project specified in file."
+        raise NoProjectError
+      end
       @stories = story_blocks.map { |block| MarkdownStory.new(project, block) }
     end
 
@@ -21,15 +26,15 @@ module PivotalMarkdown
 
     attr_accessor :story_blocks
 
-    def get_project
-      if project_id.present?
-        PivotalTracker::Project.find project_id
-      else
-        puts "No project specified in file."
-        puts Message.no_default_project
-        exit
-      end
-    end
+    # def get_project
+    #   if project_id.present?
+    #     PivotalTracker::Project.find project_id
+    #   else
+    #     puts "No project specified in file."
+    #     puts Message.no_default_project
+    #     exit
+    #   end
+    # end
 
     def project_id
       @project_id ||= (id_from_file || Config.new.default_project || nil)
