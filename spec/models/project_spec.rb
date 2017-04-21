@@ -2,8 +2,8 @@ require 'spec_helper'
 
 module PivotalMarkdown
   module CLI
-    describe Project do
 
+    describe Project do
       let(:config) { Config.new }
 
       describe '#set' do
@@ -24,7 +24,7 @@ module PivotalMarkdown
 
         it "fails if the project is invalid" do
           config.update(api_token: "valid token")
-          output = "The object you tried to access could not be found...\n\n"
+          output = "The object you tried to access could not be found..."
           expect(STDOUT).to receive(:puts).with output
           Project.new.set "invalid ID"
           expect(config.default_project).to eq nil
@@ -41,13 +41,13 @@ module PivotalMarkdown
 
         it "gives instructions if there is no default project configured" do
           config.update(api_token: "valid token")
-          expect(STDOUT).to receive(:puts).with Message.no_default_project
+          expect(STDOUT).to receive(:puts).with NoProjectError.new.message
           Project.new.check
         end
 
         it "fails if the project is invalid" do
           config.update(api_token: "valid token", default_project: "invalid ID")
-          output = "The object you tried to access could not be found...\n\n"
+          output = "The object you tried to access could not be found..."
           expect(STDOUT).to receive(:puts).with output
           Project.new.check
         end
@@ -66,7 +66,7 @@ module PivotalMarkdown
       context "when there is no API token configured" do
         describe '#set' do
           it "fails" do
-            expect(STDOUT).to receive(:puts).with Message.no_api_token
+            expect(STDOUT).to receive(:puts).with NoTokenError.new.message
             Project.new.set "valid ID"
             expect(config.default_project).to eq nil
           end
@@ -74,14 +74,14 @@ module PivotalMarkdown
 
         describe '#check' do
           it "fails" do
-            expect(STDOUT).to receive(:puts).with Message.no_api_token
+            expect(STDOUT).to receive(:puts).with NoTokenError.new.message
             Project.new.check
           end
         end
       end
 
       context "when the configured API token is invalid" do
-        let(:output) { "Invalid authentication credentials were presented.\n\n" }
+        let(:output) { "Invalid authentication credentials were presented." }
 
         describe '#set' do
           it "fails" do

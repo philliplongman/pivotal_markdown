@@ -2,8 +2,8 @@ require 'spec_helper'
 
 module PivotalMarkdown
   module CLI
-    describe Token do
 
+    describe Token do
       let(:config) { Config.new }
 
       describe '#set' do
@@ -19,7 +19,7 @@ module PivotalMarkdown
         end
 
         it "fails if the token is invalid" do
-          output = "Invalid authentication credentials were presented.\n\n"
+          output = "Invalid authentication credentials were presented."
           expect(STDOUT).to receive(:puts).with output
           Token.new.set "invalid token"
           expect(config.api_token).to eq nil
@@ -35,13 +35,13 @@ module PivotalMarkdown
         end
 
         it "gives instructions if there is no token configured" do
-          expect(STDOUT).to receive(:puts).with Message.no_api_token
+          expect(STDOUT).to receive(:puts).with NoTokenError.new.message
           Token.new.check
         end
 
         it "fails if the configured token is invalid" do
           config.update(api_token: "invalid token")
-          output = "Invalid authentication credentials were presented.\n\n"
+          output = "Invalid authentication credentials were presented."
           expect(STDOUT).to receive(:puts).with output
           Token.new.check
         end

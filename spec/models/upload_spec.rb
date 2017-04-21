@@ -2,8 +2,8 @@ require 'spec_helper'
 
 module PivotalMarkdown
   module CLI
-    describe Token do
 
+    describe Upload do
       let(:config)       { Config.new }
 
       let(:stories)      { "spec/fixtures/stories.md" }
@@ -41,38 +41,38 @@ module PivotalMarkdown
 
         it "fails if no project is specified in either place" do
           config.update(api_token: "valid token")
-          output = ["No project specified in file.", Message.no_default_project]
-          output.each { |line| expect(STDOUT).to receive(:puts).with line }
-          expect(-> { Upload.new.stories no_project }).to raise_error SystemExit
+          expect(STDOUT).to receive(:puts).with "No project specified in file."
+          expect(STDOUT).to receive(:puts).with NoProjectError.new.message
+          Upload.new.stories no_project
         end
 
         it "fails with an invalid project" do
           config.update(api_token: "valid token", default_project: "invalid ID")
-          output = "The object you tried to access could not be found...\n\n"
+          output = "The object you tried to access could not be found..."
           expect(STDOUT).to receive(:puts).with output
           Upload.new.stories no_project
         end
 
         it "fails without an API token" do
-          expect(STDOUT).to receive(:puts).with Message.no_api_token
+          expect(STDOUT).to receive(:puts).with NoTokenError.new.message
           Upload.new.stories stories
         end
 
         it "fails with an invalid API token" do
           config.update(api_token: "invalid token")
-          output = "Invalid authentication credentials were presented.\n\n"
+          output = "Invalid authentication credentials were presented."
           expect(STDOUT).to receive(:puts).with output
           Upload.new.stories stories
         end
 
         it "fails if the file doesn't exist" do
-          output = "File not found steal-the-maltese-falcon.md\n\n"
+          output = "File not found steal-the-maltese-falcon.md"
           expect(STDOUT).to receive(:puts).with output
           Upload.new.stories "steal-the-maltese-falcon.md"
         end
 
         it "fails if the file is not a Markdown file" do
-          expect(STDOUT).to receive(:puts).with Message.non_markdown_file
+          expect(STDOUT).to receive(:puts).with MarkdownFormatError.new.message
           Upload.new.stories wrong_format
         end
       end
