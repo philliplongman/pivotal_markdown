@@ -9,7 +9,7 @@ module PivotalMarkdown
       describe '#set' do
         it "verifies the project" do
           config.update(api_token: "valid token")
-          output = "Default project set to (00000) Steal the Maltese Falcon.\n\n"
+          output = "Default project set to (00000) Steal the Maltese Falcon."
           expect(STDOUT).to receive(:puts).with output
           valid_id = "00000"
           Project.new.set valid_id
@@ -34,7 +34,7 @@ module PivotalMarkdown
       describe '#check' do
         it "displays the configured project" do
           config.update(api_token: "valid token", default_project: "00000")
-          output = "Default project set to (00000) Steal the Maltese Falcon.\n\n"
+          output = "Default project set to (00000) Steal the Maltese Falcon."
           expect(STDOUT).to receive(:puts).with output
           Project.new.check
         end
@@ -56,7 +56,7 @@ module PivotalMarkdown
       describe '#reset' do
         it "resets the default project" do
           config.update(default_project: "project")
-          output = "Default project reset.\n\n"
+          output = "Default project reset."
           expect(STDOUT).to receive(:puts).with output
           Project.new.reset
           expect(config.default_project).to be nil

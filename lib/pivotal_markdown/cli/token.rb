@@ -11,7 +11,7 @@ module PivotalMarkdown
       def set(token)
         user = client(token).me
         config.update(api_token: token)
-        puts "Token set for #{user.name} - #{user.email}.\n\n"
+        output "Token set for #{user.name} - #{user.email}."
       rescue => error
         output error_message(error)
       end
@@ -20,7 +20,7 @@ module PivotalMarkdown
       def check
         check_config_for_api_token
         user = client(config.api_token).me
-        puts "Token set for #{user.name} - #{user.email}.\n\n"
+        output "Token set for #{user.name} - #{user.email}."
       rescue => error
         output error_message(error)
       end

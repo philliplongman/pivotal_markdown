@@ -8,7 +8,7 @@ module PivotalMarkdown
 
       describe '#set' do
         it "verifies the token" do
-          output = "Token set for Brigid O'Shaughnessy - misswonderly@gmail.com.\n\n"
+          output = "Token set for Brigid O'Shaughnessy - misswonderly@gmail.com."
           expect(STDOUT).to receive(:puts).with output
           Token.new.set "valid token"
         end
@@ -29,7 +29,7 @@ module PivotalMarkdown
       describe '#check' do
         it "displays the configured token" do
           config.update(api_token: "valid token")
-          output = "Token set for Brigid O'Shaughnessy - misswonderly@gmail.com.\n\n"
+          output = "Token set for Brigid O'Shaughnessy - misswonderly@gmail.com."
           expect(STDOUT).to receive(:puts).with output
           Token.new.check
         end
