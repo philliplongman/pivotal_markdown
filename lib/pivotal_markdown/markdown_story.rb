@@ -10,7 +10,7 @@ module PivotalMarkdown
     def upload
       story = create_story
       tasks.each { |task| story.tasks.create(description: task) }
-      puts output_name
+      output_name
     end
 
     private

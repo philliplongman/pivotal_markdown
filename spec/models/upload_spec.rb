@@ -10,32 +10,35 @@ module PivotalMarkdown
       let(:no_project)   { "spec/fixtures/stories-no-project.md" }
       let(:wrong_format) { "spec/fixtures/stories.txt" }
 
-      let(:success_msg) do
-        [
-          "(00000) Steal the Maltese Falcon",
-          "  Example feature",
-          "  Example feature II",
-          "  Example bug (bug)",
-          "  Example chore (chore)"
-        ]
+      let(:success_message) do
+        {
+          project: "(00000) Steal the Maltese Falcon",
+          stories: [
+            "  Example feature",
+            "  Example feature II",
+            "  Example bug (bug)",
+            "  Example chore (chore)"
+          ]
+        }
       end
 
       describe '#stories' do
         it "parses and uploads the stories" do
           config.update(api_token: "valid token", default_project: "00000")
-          success_msg.each { |line| expect(STDOUT).to receive(:puts).with line }
+          expect(STDOUT).to receive(:puts).with success_message[:project]
+          expect(STDOUT).to receive(:puts).with success_message[:stories]
           Upload.new.stories stories
         end
 
         it "uses the project specified in the file" do
           config.update(api_token: "valid token", default_project: "11111")
-          success_msg.each { |line| expect(STDOUT).to receive(:puts).with line }
+          expect(STDOUT).to receive(:puts).with success_message[:project]
           Upload.new.stories stories
         end
 
         it "uploads to default project if none is specified in the file" do
           config.update(api_token: "valid token", default_project: "00000")
-          success_msg.each { |line| expect(STDOUT).to receive(:puts).with line }
+          expect(STDOUT).to receive(:puts).with success_message[:project]
           Upload.new.stories no_project
         end
 

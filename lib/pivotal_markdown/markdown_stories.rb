@@ -18,23 +18,13 @@ module PivotalMarkdown
 
     def upload
       puts "(#{project.id}) #{project.name}"
-      stories.each(&:upload)
-      puts "\n"
+      puts stories.map(&:upload)
+      puts
     end
 
     private
 
     attr_accessor :story_blocks
-
-    # def get_project
-    #   if project_id.present?
-    #     PivotalTracker::Project.find project_id
-    #   else
-    #     puts "No project specified in file."
-    #     puts Message.no_default_project
-    #     exit
-    #   end
-    # end
 
     def project_id
       @project_id ||= (id_from_file || Config.new.default_project || nil)
