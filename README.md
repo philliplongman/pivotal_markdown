@@ -4,9 +4,9 @@
 [![Code Climate](https://codeclimate.com/github/philliplongman/pivotal_markdown/badges/gpa.svg)](https://codeclimate.com/github/philliplongman/pivotal_markdown)
 [![Coverage Status](https://coveralls.io/repos/github/philliplongman/pivotal_markdown/badge.svg?branch=master)](https://coveralls.io/github/philliplongman/pivotal_markdown?branch=master)
 
-PivotalMarkdown is a gem to facilitate posting stories to PivotalTracker. It's an expansion of a [script](https://github.com/philliplongman/pivotal-uploader)) I wrote at Launch Academy's Ship It Saturday hackathon.
+PivotalMarkdown is a command line gem to facilitate posting stories to PivotalTracker. It's an expansion of a [script](https://github.com/philliplongman/pivotal-uploader) I wrote at Launch Academy's Ship It Saturday hackathon.
 
-I was writing all of the user stories for my team, and I found it was easiest for me to compose them in Markdown prior to posting them. The `pivotal_markdown` gem is intended to take Markdown files in the format I used, parse them into stories, and add them to a PT project.
+At the time, I was writing all of the user stories for my team, and I found it was easiest for me to compose them in Markdown prior to posting them. The `pivotal_markdown` gem is intended to take Markdown files like the ones I was writing, parse them into stories, and add them to a PT project.
 
 The gem was nearing its initial release, but since I am no longer writing stories for PivotalTracker, I have stopped developing it for now.
 
@@ -49,9 +49,9 @@ Notes:
 Labels: example feature, pretend label
 
 - Every # header should begin a new story.
-- Story type should be at the end of the story name. Default is feature.
+- Story type should be at the end of the story name, in parenthesis. Default is feature.
 - Labels should be prefixed by 'Labels:' and be comma-separated.
-- Tasks should appear at the end as a hyphen bullet point.
+- Tasks should appear at the end as hyphen bullet points.
 
 
 # Example bug (bug)
